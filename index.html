@@ -168,6 +168,12 @@ details.more .grid{margin-top:12px}
 :root[data-theme="dark"] .papers{background:#0A0B1C}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .papers{background:#0A0B1C}}
 .papers .paper{zoom:var(--z)}
+.papers.zoomed{overflow-x:auto;-webkit-overflow-scrolling:touch}
+button,.nav,.mi,.btn,.seg span{-webkit-tap-highlight-color:transparent}
+.papers.zoomed .paper{margin-inline:0}
+.zoombar{display:none;align-items:center;gap:8px;margin:0 0 8px;flex-wrap:wrap}
+.zoombar button{min-width:42px;min-height:38px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:10px;font-weight:800;font-size:17px;cursor:pointer}
+.zoombar .zl{color:var(--mut);font-size:12.5px;flex:1}
 .atbl{width:100%;border-collapse:collapse;min-width:640px}
 .atbl th{background:var(--s3);text-align:start;padding:8px 10px;font-size:12.5px}
 .atbl td{padding:5px 10px;border-top:1px solid var(--line);font-size:13.5px;vertical-align:middle}
@@ -221,7 +227,8 @@ table.ft .inp{padding:5px 8px;font-size:14px}
 .toast.warn{background:#B54708}
 
 @media (max-width:980px){
-  .bld,.mem{grid-template-columns:1fr}
+  .bld,.mem{grid-template-columns:minmax(0,1fr)}
+  .bld>*,.mem>*{min-width:0}
   .aside,.mlist{position:static}
   .group{grid-template-columns:1fr}
   .mlist ul{max-height:260px}
@@ -247,6 +254,22 @@ table.ft .inp{padding:5px 8px;font-size:14px}
   body.navopen .scrim{display:block}
   .burger{display:inline-flex}
   main{padding:18px 14px 0}
+  .zoombar{display:flex}
+  .inp,select.inp,textarea.inp{font-size:16px}
+  .btn{min-height:40px}
+  .btn.sm{min-height:36px}
+  .mi{padding:13px 14px}
+  .ov{padding:8px}
+  .dlg{max-height:94vh;border-radius:14px}
+  .dlg header,.dlg .bd,.dlg footer{padding-inline:14px}
+  .toolbar{gap:8px}
+  .toolbar .btn{flex:1 1 auto}
+  .lcard .acts .btn{flex:1 1 auto}
+  .day-h{padding:10px 12px}
+  .slot{margin:12px 8px}
+  .group{padding:12px 10px}
+  .panel{padding:14px}
+  h2{font-size:18px}
 }
 @media (max-width:560px){
   .wrap{padding:0 12px}
@@ -24459,12 +24482,23 @@ function orgHTML(){
 function render(){
   const v = $('#view');
   ({setup:rSetup, builder:rBuilder, stu:rStu, full:rFull, members:rMembers, room:rRoom, roomprc:rRoomPrc, daily:rDaily, report:rReport, faculty:rFaculty, lib:rLib})[ui.tab](v);
-  trNode(v); fitPapers(); renderSide();
+  trNode(v); addZoomBars(); fitPapers(); renderSide();
   $('#orgLine').innerHTML = orgHTML();
   $('#appfoot').hidden = ui.tab !== 'setup';
 }
 function updateBadge(){ renderSide(); }
-function fitPapers(){ $$('.papers').forEach(el => el.style.setProperty('--z', Math.max(.3, Math.min(1, (el.clientWidth - 20) / 794)).toFixed(3))); }
+function fitPapers(){
+  $$('.papers').forEach(el => {
+    const base = Math.max(.3, Math.min(1, (el.clientWidth - 20) / 794)), z = Math.min(1.7, base * (ui.zoomMul || 1));
+    el.style.setProperty('--z', z.toFixed(3)); el.classList.toggle('zoomed', z > base * 1.02);
+  });
+}
+function addZoomBars(){
+  $$('.papers').forEach(el => {
+    if(el.previousElementSibling && el.previousElementSibling.classList.contains('zoombar')) return;
+    el.insertAdjacentHTML('beforebegin', `<div class="zoombar"><button type="button" data-a="zoom" data-d="-1" aria-label="${tt('تصغير', 'Zoom out')}">−</button><button type="button" data-a="zoom" data-d="1" aria-label="${tt('تكبير', 'Zoom in')}">+</button><button type="button" data-a="zoom" data-d="0" style="font-size:13px;padding:0 12px">${tt('ملاءمة العرض', 'Fit width')}</button><span class="zl">${tt('كبّر الورقة لقراءة التفاصيل ثم مرّرها يميناً ويساراً.', 'Zoom the page to read details, then scroll sideways.')}</span></div>`);
+  });
+}
 window.addEventListener('resize', fitPapers);
 const langSeg = () => `<div class="seg sm" role="radiogroup" aria-label="إصدار العرض">
   <label><input type="radio" name="lang" data-a="lang" value="ar" ${lang === 'ar' ? 'checked' : ''}><span>عربي</span></label>
@@ -25220,6 +25254,7 @@ view.addEventListener('click', async e => {
     case 'docx-member': if(ui.member) exportDocx('member', ui.member); break;
     case 'docx-all': exportDocx('members'); break;
     case 'pick-room': ui.room = t.dataset.id; render(); break;
+    case 'zoom': { const d = +t.dataset.d, cur = ui.zoomMul || 1; ui.zoomMul = d === 0 ? 1 : Math.min(4, Math.max(1, d > 0 ? cur * 1.3 : cur / 1.3)); fitPapers(); break; }
     case 'pick-day': ui.day = t.dataset.id; render(); break;
     case 'print-day': { const dd = S.days.find(x => x.id === ui.day); if(dd) doPrint(dailySheet(dd)); break; }
     case 'print-days': doPrint(allDailySheets()); break;
