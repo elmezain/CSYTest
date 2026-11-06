@@ -148,6 +148,14 @@ details.more .grid{margin-top:12px}
 .crs .inp{padding:7px 9px;font-size:14px}
 .crs .inp.ltr{font-size:13px}
 .crs .inp.en{grid-column:1/-1;font-size:12.5px;padding:5px 9px}
+.crs .secbar{grid-column:1/-1}
+.secbox{border:1px dashed var(--line);border-radius:10px;padding:8px 10px;background:var(--s2)}
+.sec-h{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline;margin-bottom:6px}
+.sec-row{display:grid;grid-template-columns:minmax(0,1fr) 90px auto;gap:6px;margin-bottom:5px}
+.sec-row .inp{padding:6px 9px;font-size:13.5px}
+.sec-f{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.sec-total{font-size:13px;color:var(--mut)}.sec-total b{color:var(--ink);font-size:15px}
+.crs .inp[readonly]{background:var(--s3);cursor:not-allowed}
 .chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px}
 .chip{display:inline-flex;align-items:center;gap:5px;background:var(--s3);border-radius:99px;padding:2px 11px;font-size:13.5px;font-weight:500}
 .chip.hall{background:var(--teal);color:#fff;font-weight:700;direction:ltr}
@@ -23415,7 +23423,7 @@ const TERM_EN = {'الأول':'First', 'الثاني':'Second', 'الصيفي':'
 /* نصوص الجداول بالعربية والإنجليزية */
 const STR = {
   ar:{
-    titleStaff:'جدول المراقبات', titleStu:'جدول الاختبارات', titleMember:'جدول مراقبة الاختبارات', titleRoom:'جدول الاختبارات في القاعة', titleRoomPrc:'أسماء المراقبين في القاعة', titleDaily:'التقرير اليومي للاختبارات', titleReport:'التقرير الرسمي لسير الاختبارات', rFrom:'تاريخ البداية', rTo:'تاريخ النهاية', rIssue:'تاريخ إصدار التقرير', rKey:'المؤشرات الرئيسية', rAtt:'ملخص الحضور',
+    titleStaff:'جدول المراقبات', titleStu:'جدول الاختبارات', titleMember:'جدول مراقبة الاختبارات', titleRoom:'جدول الاختبارات في القاعة', titleRoomPrc:'أسماء المراقبين في القاعة', titleDaily:'التقرير اليومي للاختبارات', sec:'شعبة', titleReport:'التقرير الرسمي لسير الاختبارات', rFrom:'تاريخ البداية', rTo:'تاريخ النهاية', rIssue:'تاريخ إصدار التقرير', rKey:'المؤشرات الرئيسية', rAtt:'ملخص الحضور',
     rDaily:'الإحصائيات اليومية', rCourses:'تفاصيل المقررات', rHalls:'استخدام القاعات', rWork:'عبء المراقبة', rDept:'التكليفات بحسب القسم', rObs:'الملاحظات والتنبيهات', rNotes:'ملاحظات وتوصيات',
     kDays:'أيام الاختبار', kPeriods:'الفترات', kCourses:'المقررات', kHalls:'القاعات', kStudents:'الطلاب المسجلون', kProctors:'المراقبون', kDuties:'إجمالي التكليفات', kRate:'نسبة الحضور',
     rNoAtt:'لم تُدخل أعداد الحضور بعد (من تبويب التقرير اليومي).', rCover:'مقررات سُجّل حضورها', rSessions:'عدد الفترات', rSharedNote:'يُقسَّم عدد طلاب المجموعة بالتساوي عند اشتراك أكثر من قاعة.', rWorkSum:'ملخص العبء', rMembers:'الأعضاء', rPrepBy:'أعدّ التقرير', regd:'العدد', present:'الحاضرون', absent:'الغائبون', deprived:'المحرومون', procSig:'المراقبون والتوقيع', period:'الفترة', grand:'الإجمالي', notes:'ملاحظات',
@@ -23429,7 +23437,7 @@ const STR = {
     designed:'تصميم', designer:'أ.د. محمود المزين', schedOf:'جدول ', ce:'م', ah:'هـ'
   },
   en:{
-    titleStaff:'Proctoring Schedule', titleStu:'Examination Schedule', titleMember:'Invigilation Schedule', titleRoom:'Room Examination Schedule', titleRoomPrc:'Room Proctors List', titleDaily:'Daily Examination Report', titleReport:'Official Examination Report', rFrom:'Start date', rTo:'End date', rIssue:'Report issue date', rKey:'Key Figures', rAtt:'Attendance Summary',
+    titleStaff:'Proctoring Schedule', titleStu:'Examination Schedule', titleMember:'Invigilation Schedule', titleRoom:'Room Examination Schedule', titleRoomPrc:'Room Proctors List', titleDaily:'Daily Examination Report', sec:'Sec.', titleReport:'Official Examination Report', rFrom:'Start date', rTo:'End date', rIssue:'Report issue date', rKey:'Key Figures', rAtt:'Attendance Summary',
     rDaily:'Daily Statistics', rCourses:'Course Details', rHalls:'Hall Utilization', rWork:'Proctoring Workload', rDept:'Duties by Department', rObs:'Observations & Alerts', rNotes:'Notes & Recommendations',
     kDays:'Exam days', kPeriods:'Periods', kCourses:'Courses', kHalls:'Halls', kStudents:'Registered students', kProctors:'Proctors', kDuties:'Total duties', kRate:'Attendance rate',
     rNoAtt:'Attendance numbers have not been entered yet (from the Daily Report tab).', rCover:'Courses with attendance', rSessions:'Sessions', rSharedNote:'A group’s students are split evenly when it uses more than one hall.', rWorkSum:'Workload summary', rMembers:'Members', rPrepBy:'Prepared by', regd:'Students', present:'Present', absent:'Absent', deprived:'Debarred', procSig:'Proctors & Signature', period:'Period', grand:'Total', notes:'Notes',
@@ -23486,7 +23494,7 @@ const EN = {
   'الجدول الكامل (أعضاء التدريس)':'Full Schedule (Faculty)','الجدول الكامل (طلاب)':'Full Schedule (Students)',
   'يتضمن المراقبين والاحتياطي. معاينة بحجم الورقة، وتُطبع كل مجموعة أسبوع في صفحة مستقلة.':'Includes proctors and reserve. Paper-size preview; each week prints on its own page.',
   'للطلاب: بدون المراقبين والاحتياطي. معاينة بحجم الورقة، وتُطبع كل مجموعة أسبوع في صفحة مستقلة.':'For students: without proctors and reserve. Paper-size preview; each week prints on its own page.',
-  'طباعة / حفظ PDF':'Print / Save as PDF','تنزيل Excel':'Download Excel','تنزيل Word':'Download Word','التقرير الرسمي':'Official Report','بيانات إعداد التقرير':'Report preparation details','اسم معدّ التقرير':'Report preparer name','صفة المعدّ':'Preparer title','ملاحظات وتوصيات (تظهر في التقرير)':'Notes & recommendations (shown in the report)','لا توجد بيانات لإصدار تقرير':'No data to issue a report',
+  'طباعة / حفظ PDF':'Print / Save as PDF','تنزيل Excel':'Download Excel','تنزيل Word':'Download Word','إظهار الشعب وأعداد طلابها':'Show sections and their student numbers','التقرير الرسمي':'Official Report','بيانات إعداد التقرير':'Report preparation details','اسم معدّ التقرير':'Report preparer name','صفة المعدّ':'Preparer title','ملاحظات وتوصيات (تظهر في التقرير)':'Notes & recommendations (shown in the report)','لا توجد بيانات لإصدار تقرير':'No data to issue a report',
   'تقرير شامل بكل الإحصائيات اللازمة لإصدار تقرير رسمي: المؤشرات الرئيسية، والحضور، والإحصائيات اليومية، وتفاصيل المقررات، واستخدام القاعات، وعبء المراقبة، والتكليفات بحسب القسم، والملاحظات الآلية، وخانات الإعداد والاعتماد.':'A comprehensive report with all the statistics needed for an official report: key figures, attendance, daily statistics, course details, hall utilization, proctoring workload, duties by department, automatic observations, and preparation and approval boxes.',
   'أعداد الحضور تُؤخذ من تبويب «التقرير اليومي». أسماء المعتمِد وتاريخ الاعتماد من «بيانات الجدول».':'Attendance numbers come from the “Daily Report” tab. Approver name and approval date come from “Schedule Data”.','التقرير اليومي':'Daily Report','Word (جميع الأيام)':'Word (all days)','الأيام':'Days','إدخال أعداد الحضور':'Attendance entry','الحاضرون':'Present','الغائبون':'Absent','المحرومون':'Debarred','القاعة':'Hall','المقرر':'Course',
   'تقرير لكل يوم اختبار: المقررات والقاعات وعدد الطلاب وأسماء المراقبين مع خانة توقيع لكل مراقب، وخانات الحاضرين والغائبين والمحرومين.':'A report for each exam day: courses, halls, student numbers and proctor names with a signature box for each proctor, plus boxes for present, absent and debarred students.',
@@ -23589,7 +23597,7 @@ const todayIso = () => isoOf(new Date());
 const defaultMeta = () => ({
   univ:'جامعة طيبة', college:'كلية علوم وهندسة الحاسبات بينبع', univEn:'Taibah University', collegeEn:'College of Computer Science and Engineering – Yanbu', office:'مكتب الدعم الطلابي', officeEn:'Student Support Office',
   term:'الأول', year:'1448هـ', exam:'mid1', sector:'students', hijriOffset:0,
-  approverName:'', approverTitle:'', approverNameEn:'', approverTitleEn:'', reportPrepName:'', reportPrepTitle:'', reportNotes:'', approvalDate:todayIso(), showApprovalFull:true, memberSign:true
+  approverName:'', approverTitle:'', approverNameEn:'', approverTitleEn:'', reportPrepName:'', reportPrepTitle:'', reportNotes:'', approvalDate:todayIso(), showApprovalFull:true, memberSign:true, showSections:false
 });
 function normalize(s){
   s = s && typeof s === 'object' ? s : {};
@@ -23604,7 +23612,7 @@ function normalize(s){
       sl.id = sl.id || uid(); sl.groups = Array.isArray(sl.groups) ? sl.groups : []; sl.reserve = sl.reserve || null;
       sl.groups.forEach(g => {
         g.id = g.id || uid(); g.halls = g.halls || []; g.proctors = g.proctors || []; g.courses = g.courses || [];
-        g.courses.forEach(c => { c.id = c.id || uid(); c.codes = Array.isArray(c.codes) ? c.codes : parseCodes(c.codes); c.count = String(c.count ?? ''); c.name = c.name || ''; c.nameEn = c.nameEn || ''; const at = c.att || {}; c.att = {p:String(at.p ?? ''), a:String(at.a ?? ''), d:String(at.d ?? '')}; });
+        g.courses.forEach(c => { c.id = c.id || uid(); c.codes = Array.isArray(c.codes) ? c.codes : parseCodes(c.codes); c.count = String(c.count ?? ''); c.name = c.name || ''; c.nameEn = c.nameEn || ''; c.sections = Array.isArray(c.sections) ? c.sections.map(x => ({id:x.id || uid(), name:String(x.name ?? ''), count:String(x.count ?? '')})) : []; const at = c.att || {}; c.att = {p:String(at.p ?? ''), a:String(at.a ?? ''), d:String(at.d ?? '')}; });
       });
     });
   });
@@ -23869,7 +23877,10 @@ const SHEET_CSS = `
 .paper .ltr{display:inline-block;direction:ltr;unicode-bidi:isolate;white-space:nowrap}
 .paper td.c-res{background:#FFF8E6;text-align:center}
 .paper .res{display:inline-block;max-width:100%;font-weight:700;font-size:8pt;color:#8A6410;border:1px solid #EBCB7B;background:#fff;border-radius:10px;padding:.6mm 1.8mm;line-height:1.3;overflow-wrap:anywhere}
-.paper .course{display:flex;align-items:center;gap:1.6mm;padding:.9mm 0}
+.paper .course{display:flex;flex-wrap:wrap;align-items:center;gap:1.6mm;padding:.9mm 0}
+.paper .secs{flex:0 0 100%;display:flex;flex-wrap:wrap;gap:1mm 1.4mm;font-size:6.8pt;color:#666890;margin-top:-.2mm}
+.paper .sec1{background:#F1F1FA;border-radius:1mm;padding:.2mm 1.5mm;white-space:nowrap}
+.paper .sec1 b{color:#127A73}
 .paper .course+.course{border-top:1px dashed #DCDDEE}
 .paper .cname{font-weight:700;font-size:9pt;flex:1 1 0;min-width:0;line-height:1.3}
 .paper .codes{display:flex;gap:1mm;flex:0 0 auto;direction:ltr}
@@ -23971,9 +23982,14 @@ function headHTML({title, a, b}){
     <div class="hr"><img class="logo" src="${LOGO}" alt="">${a ? `<div class="wkb"><span class="wk">${esc(a)}</span><span class="wr">${esc(b || '')}</span></div>` : ''}</div></div>`;
 }
 const chipsHTML = (arr, cls) => arr.map(x => `<span class="${cls}">${esc(x)}</span>`).join('');
+const secToggle = () => `<label class="chk"><input type="checkbox" data-m="showSections" ${S.meta.showSections ? 'checked' : ''}> إظهار الشعب وأعداد طلابها</label>`;
+function secsHTML(c){
+  if(!S.meta.showSections || !(c.sections && c.sections.length)) return '';
+  return `<span class="secs">${c.sections.map((s, i) => `<span class="sec1">${esc(s.name || (T('sec') + ' ' + (i + 1)))} <span class="sp">–</span> <b>${esc(s.count)}</b></span>`).join('')}</span>`;
+}
 function courseHTML(c, showCount = true){
   const codes = (c.codes || []).map(x => `<span class="code">${esc(x)}</span>`).join('');
-  return `<div class="course"><span class="cname">${esc(cnm(c)) || '<span class="none">—</span>'}</span><span class="codes">${codes}</span>${showCount && c.count !== '' ? `<span class="cnt">${esc(c.count)}</span>` : ''}</div>`;
+  return `<div class="course"><span class="cname">${esc(cnm(c)) || '<span class="none">—</span>'}</span><span class="codes">${codes}</span>${showCount && c.count !== '' ? `<span class="cnt">${esc(c.count)}</span>` : ''}${secsHTML(c)}</div>`;
 }
 const timeHTML = (a, b) => `<span class="ltr">${esc(a || '—')}</span><span class="tsep"></span><span class="ltr">${esc(b || '—')}</span>`;
 function legendHTML(kind, showCount){
@@ -24081,9 +24097,11 @@ function allMemberSheets(){
 /* ================= الطباعة والتصدير ================= */
 let DL = null;
 (async () => { try { if(window.claude && window.claude.use) DL = await window.claude.use('downloads'); } catch(e){ DL = null; } })();
-function doPrint(html){
+function doPrint(html, name){
   $('#printRoot').innerHTML = html;
-  setTimeout(() => { try { window.print(); } catch(e){ toast('تعذّر فتح نافذة الطباعة هنا. نزّل نسخة HTML ثم اطبعها من المتصفح.'); } }, 60);
+  const reset = () => { document.title = tt('منظومة جداول الاختبارات', 'Exam Schedules System'); window.removeEventListener('afterprint', reset); };
+  if(name){ document.title = name; window.addEventListener('afterprint', reset); matchMedia('print').addEventListener('change', e => { if(!e.matches) reset(); }, {once:false}); setTimeout(reset, 120000); }
+  setTimeout(() => { try { window.print(); } catch(e){ reset(); toast('تعذّر فتح نافذة الطباعة هنا. نزّل نسخة HTML ثم اطبعها من المتصفح.'); } }, 60);
 }
 async function saveFile(name, data){
   const ext = name.split('.').pop();
@@ -24098,6 +24116,30 @@ async function saveFile(name, data){
   try { await DL.save({filename:name, data}); toast('تم حفظ الملف.'); return true; }
   catch(e){ if(!(e && e.code === 'declined')) toast('تعذّر حفظ الملف.'); return false; }
 }
+const dayLabel = d => greg(d.date).replace(/\//g, '-');
+const utf8Len = s => new TextEncoder().encode(s).length;
+/* اسم قصير: نوع المستند + (اسم العضو / القاعة / اليوم) + نوع الاختبار + الشطر + العام */
+function docName(kind, extra){
+  const m = S.meta, en = lang === 'en', fem = m.sector === 'female', x = extra || '';
+  const ex = en ? {mid1:'Mid 1', mid2:'Mid 2', final:'Final'}[m.exam] : {mid1:'نصفي 1', mid2:'نصفي 2', final:'نهائي'}[m.exam];
+  const yr = en ? String(m.year).replace(/\s*هـ/, ' AH') : m.year;
+  const sect = en ? (fem ? 'Female' : 'Male') : (fem ? 'طالبات' : 'طلاب');
+  const N = {
+    staff:['جدول المراقبات', 'Proctoring Schedule'], stu:[fem ? 'جدول الطالبات' : 'جدول الطلاب', fem ? 'Female Students Schedule' : 'Male Students Schedule'],
+    member:['جدول ' + x, 'Schedule ' + x], members:['جداول الأعضاء', 'Faculty Schedules'],
+    room:['جدول غرفة ' + x, 'Room ' + x + ' Schedule'], rooms:['جداول الغرف', 'All Rooms Schedules'],
+    rprc:['مراقبو غرفة ' + x, 'Room ' + x + ' Proctors'], rprcs:['مراقبو الغرف', 'All Rooms Proctors'],
+    day:['تقرير يوم ' + x, 'Daily Report ' + x], days:['التقارير اليومية', 'Daily Reports'],
+    report:['التقرير الرسمي', 'Official Report'], project:['مشروع جدول', 'Schedule Project']
+  }[kind];
+  const parts = [(en ? N[1] : N[0]).trim(), ex];
+  if(kind !== 'stu') parts.push(sect);
+  parts.push(yr);
+  const clean = a => a.join(' - ').replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim();
+  while(parts.length > 2 && utf8Len(clean(parts)) > 120) parts.pop();
+  let n = clean(parts); while(utf8Len(n) > 120) n = n.slice(0, -1);
+  return n;
+}
 const slug = s => String(s).replace(/[\s\\/:*?"<>|]+/g, '-');
 const fname = (ext, rec = S) => slug(`${EXAMS[rec.meta.exam]}-${SECT[rec.meta.sector].label}-${lang === 'en' ? String(rec.meta.year).replace(/\s*هـ/, 'AH') : rec.meta.year}${lang === 'en' ? '-EN' : ''}`) + '.' + ext;
 function standalone(sheetsHtml, title){
@@ -24106,25 +24148,25 @@ function standalone(sheetsHtml, title){
 <style>body{margin:0;background:#D8D9EA;padding:18px 0}.bar{max-width:210mm;margin:0 auto 12px}.bar button{font:700 14px Tajawal,Arial;background:#3F4296;color:#fff;border:0;border-radius:10px;padding:10px 20px;cursor:pointer}
 @media print{body{background:#fff;padding:0}.bar{display:none}}${SHEET_CSS}</style></head><body><div class="bar"><button onclick="window.print()">${lang === 'en' ? 'Print / Save as PDF' : 'طباعة / حفظ PDF'}</button></div>${sheetsHtml}</body></html>`;
 }
-const exportHTML = (sheetsHtml, label) => saveFile(slug(fname('html').replace(/\.html$/, '') + (label ? '-' + label : '')) + '.html', standalone(sheetsHtml, T('titleStaff')));
+const exportHTML = (sheetsHtml, kind, extra) => saveFile(docName(kind, extra) + '.html', standalone(sheetsHtml, docName(kind, extra)));
 function exportXLSX(kind){
   if(typeof XLSX === 'undefined'){ toast('مكتبة Excel لم تُحمَّل. تحقق من الاتصال بالإنترنت.'); return; }
   const en = lang === 'en', wb = XLSX.utils.book_new();
   wb.Workbook = {Views:[{RTL:!en}]};
   const staff = kind !== 'stu';
-  const h1 = en ? ['Day','Date (CE)','Date (AH)','From','To','Course','Course code','Students','Halls'].concat(staff ? ['Proctors','Reserve'] : [])
-                : ['اليوم','التاريخ (م)','التاريخ (هـ)','من','إلى','المقرر','رمز المقرر','عدد الطلاب','القاعات'].concat(staff ? ['المراقبون','الاحتياطي'] : []);
+  const h1 = en ? ['Day','Date (CE)','Date (AH)','From','To','Course','Course code','Students','Sections','Halls'].concat(staff ? ['Proctors','Reserve'] : [])
+                : ['اليوم','التاريخ (م)','التاريخ (هـ)','من','إلى','المقرر','رمز المقرر','عدد الطلاب','الشعب','القاعات'].concat(staff ? ['المراقبون','الاحتياطي'] : []);
   const r1 = [h1];
   S.days.forEach(d => d.slots.forEach(s => s.groups.forEach(g => {
     const cs = g.courses.length ? g.courses : [{name:'', nameEn:'', codes:[], count:''}];
     cs.forEach(c => {
-      const row = [docDay(d.date), greg(d.date), hijri(d.date), s.start, s.end, cnm(c), (c.codes||[]).join(' / '), c.count === '' ? '' : (isNaN(+c.count) ? c.count : +c.count), g.halls.join(' / ')];
+      const row = [docDay(d.date), greg(d.date), hijri(d.date), s.start, s.end, cnm(c), (c.codes||[]).join(' / '), c.count === '' ? '' : (isNaN(+c.count) ? c.count : +c.count), (c.sections || []).map((x, i) => `${x.name || (i + 1)}: ${x.count}`).join(' / '), g.halls.join(' / ')];
       if(staff) row.push(g.proctors.map(p => snm(who(p))).join(' + '), s.reserve ? snm(who(s.reserve)) : '');
       r1.push(row);
     });
   })));
   const w1 = XLSX.utils.aoa_to_sheet(r1);
-  w1['!cols'] = [10,12,12,7,7,34,16,10,14,40,14].slice(0, h1.length).map(wch => ({wch}));
+  w1['!cols'] = [10,12,12,7,7,34,16,10,24,14,40,14].slice(0, h1.length).map(wch => ({wch}));
   XLSX.utils.book_append_sheet(wb, w1, en ? (staff ? 'Full schedule' : 'Student schedule') : (staff ? 'الجدول الكامل' : 'جدول الطلاب'));
   if(staff){
     const r2 = [en ? ['Member','User code','Department','Day','Date (CE)','Date (AH)','Time','Duty','Courses','Halls','Co-proctors'] : ['العضو','رمز المستخدم','القسم','اليوم','التاريخ (م)','التاريخ (هـ)','الوقت','المهمة','المقررات','القاعات','يشاركه']];
@@ -24140,7 +24182,7 @@ function exportXLSX(kind){
     const w3 = XLSX.utils.aoa_to_sheet(r3); w3['!cols'] = [34,14,24,14,14,10].map(wch => ({wch}));
     XLSX.utils.book_append_sheet(wb, w3, en ? 'Workload' : 'عبء المراقبة');
   }
-  saveFile(fname('xlsx').replace(/\.xlsx$/, staff ? '' : (en ? '-students' : '-طلاب')) + '.xlsx', new Uint8Array(XLSX.write(wb, {bookType:'xlsx', type:'array'})));
+  saveFile(docName(staff ? 'staff' : 'stu') + '.xlsx', new Uint8Array(XLSX.write(wb, {bookType:'xlsx', type:'array'})));
 }
 
 /* ---- تصدير Word (.docx) ---- */
@@ -24167,11 +24209,13 @@ async function exportDocx(kind, id){
       PC_([R_(docDay(dateIso), {bold:true, size:20, color:DX.indD})]),
       PC_([R_(`${greg(dateIso)} ${T('ce')}`.trim(), {bold:true, size:16})], {spacing:{before:50, after:0}}),
       ...(h ? [PC_([R_(`${h} ${T('ah')}`, {size:14, color:DX.mut})], {spacing:{before:10, after:0}})] : [])], width, DX.indL, {rowSpan, borders}); };
-  const courseParas = (courses, showCount) => courses.length ? courses.map((c, i) => {
+  const courseParas = (courses, showCount) => courses.length ? courses.flatMap((c, i) => {
     const runs = [R_(cnm(c) || '—', {bold:true})];
     (c.codes || []).forEach(cd => { runs.push(R_('  ')); runs.push(chip(cd, DX.ind, DX.indL)); });
     if(showCount && c.count !== ''){ runs.push(R_('  ')); runs.push(chip(String(c.count).replace(/ /g, '\u00A0'), DX.tealT, DX.tealL)); }
-    return P_(runs, {spacing:{before:i ? 60 : 0, after:0}, border:i ? {top:{style:BorderStyle.DASHED, size:4, color:DX.line, space:3}} : undefined});
+    const out = [P_(runs, {spacing:{before:i ? 60 : 0, after:0}, border:i ? {top:{style:BorderStyle.DASHED, size:4, color:DX.line, space:3}} : undefined})];
+    if(S.meta.showSections && c.sections && c.sections.length) out.push(P_([R_(c.sections.map((s, k) => `${s.name || (T('sec') + ' ' + (k + 1))} – ${s.count}`).join('   •   '), {size:14, color:DX.mut})], {spacing:{before:20, after:0}}));
+    return out;
   }) : [P_([R_('—', {color:DX.mut, bold:true})])];
   const hallParas = halls => halls.length ? halls.map((h, i) => PC_([chip(h, 'FFFFFF', DX.teal, {size:15})], {spacing:{before:i ? 50 : 0, after:0}})) : [PC_([R_('—', {color:DX.mut, bold:true})])];
   const procPara = names => [P_(names.length ? [R_(names.join('  +  '), {size:17})] : [R_('—', {color:DX.mut, bold:true})])];
@@ -24367,7 +24411,7 @@ async function exportDocx(kind, id){
 
   const page = {size:{width:11906, height:16838}, margin:{top:567, bottom:760, left:680, right:680, footer:300}};
   const sections = [];
-  let baseName = fname('docx').replace(/\.docx$/, '');
+  let baseName = '';
   if(kind === 'staff' || kind === 'stu'){
     const wk = weekGroups(); if(!wk.length){ toast(tt('لا يوجد جدول لتصديره.', 'There is no schedule to export.')); return; }
     const sc = kind === 'staff' ? true : ui.showCount;
@@ -24377,26 +24421,26 @@ async function exportDocx(kind, id){
         headerBlock({title:kind === 'staff' ? T('titleStaff') : T('titleStu'), a:label, b:rangeText(days)}), spacer(100), scheduleTable(days, kind, sc),
         ...(i === wk.length - 1 && S.meta.showApprovalFull ? [spacer(160), approval(false)] : [])]});
     });
-    if(kind === 'stu') baseName += lang === 'en' ? '-students' : '-طلاب';
+    baseName = docName(kind);
   } else if(kind === 'report'){
     const rs = reportSections(); if(!rs){ toast(tt('لا توجد بيانات لإصدار تقرير.', 'There is no data to issue a report.')); return; }
     [['s1', 1], ['s2', 2], ['s3', 3]].forEach(([k, i]) => sections.push({properties:{page}, footers:{default:footer(T('titleReport') + ' · ' + i, i === 1)}, children:rs[k]}));
-    baseName += lang === 'en' ? '-official-report' : '-التقرير-الرسمي';
+    baseName = docName('report');
   } else if(kind === 'day' || kind === 'days'){
     const ds = kind === 'days' ? dailyDays() : [dailyDays().find(x => x.id === id)].filter(Boolean);
     if(!ds.length){ toast(tt('لا توجد أيام لتصديرها.', 'There are no days to export.')); return; }
     ds.forEach((x, i) => sections.push({properties:{page}, footers:{default:footer(`${docDay(x.date)} ${greg(x.date)}`, i === 0)}, children:dailyBlock(x)}));
-    baseName += (lang === 'en' ? '-daily-report' : '-التقرير-اليومي') + (kind === 'days' ? '' : '-' + ds[0].date);
+    baseName = docName(kind, kind === 'days' ? '' : dayLabel(ds[0]));
   } else if(kind === 'room' || kind === 'rooms' || kind === 'rprc' || kind === 'rprcs'){
     const k2 = kind.startsWith('rprc') ? 'rprc' : 'room', hs = kind.endsWith('s') ? roomList() : [id];
     if(!hs.length || !hs[0]){ toast(tt('لا توجد قاعات لتصديرها.', 'There are no halls to export.')); return; }
     hs.forEach((h, i) => sections.push({properties:{page}, footers:{default:footer(`${T('hall')} ${h}`, i === 0, k2 === 'rprc' ? 'staff' : 'room', true)}, children:roomBlock(h, k2)}));
-    baseName += (k2 === 'rprc' ? (lang === 'en' ? '-room-proctors' : '-مراقبو-القاعات') : (lang === 'en' ? '-rooms' : '-القاعات')) + (kind.endsWith('s') ? '' : '-' + slug(id));
+    baseName = docName(kind, kind.endsWith('s') ? '' : id);
   } else {
     const ids = kind === 'member' ? [id] : membersWithDuty().sort((a, b) => who(a).name.localeCompare(who(b).name, 'ar'));
     if(!ids.length || !ids[0]){ toast(tt('لا توجد مهام لتصديرها.', 'There are no duties to export.')); return; }
     ids.forEach((mid, i) => sections.push({properties:{page}, footers:{default:footer(T('schedOf') + snm(who(mid)), i === 0)}, children:memberBlock(mid)}));
-    baseName += kind === 'member' ? '-' + slug(snm(who(ids[0]))) : (lang === 'en' ? '-all-members' : '-جميع-الأعضاء');
+    baseName = docName(kind === 'member' ? 'member' : 'members', kind === 'member' ? snm(who(ids[0])) : '');
   }
   try {
     const doc = new Document({creator:T('designer'), title:T('titleStaff'), styles:{default:{document:{run:{font:FONT, size:18}}}}, sections});
@@ -24408,7 +24452,7 @@ async function exportDocx(kind, id){
 /* ---- النسخ الاحتياطي والاستيراد ---- */
 async function exportBackup(onlyCurrent){
   const data = {kind:'exam-proctoring-backup', version:2, exported:new Date().toISOString(), current:S.id, lib:onlyCurrent ? [S] : lib, faculty:{list:faculty, updated:facUpdated}, bank};
-  const name = onlyCurrent ? slug(`جدول-${EXAMS[S.meta.exam]}-${SECT[S.meta.sector].label}-${S.meta.year}`) + '.json' : `نسخة-احتياطية-كاملة-${todayIso()}.json`;
+  const name = onlyCurrent ? docName('project') + '.json' : (lang === 'en' ? `Full Backup - ${todayIso()}.json` : `نسخة احتياطية كاملة - ${todayIso()}.json`);
   const ok = await saveFile(name, JSON.stringify(data));
   if(ok && !onlyCurrent){ LS.set('ex.lastBackup', Date.now()); setStatus(Sync.state === 'local' || Sync.state === 'full' ? 'local' : Sync.state); if(ui.tab === 'lib') render(); }
 }
@@ -24555,7 +24599,7 @@ function rSetup(v){
 }
 
 /* ---- ٢ بناء الجدول ---- */
-const newCourse = () => ({id:uid(), name:'', nameEn:'', codes:[], count:'', att:{p:'', a:'', d:''}});
+const newCourse = () => ({id:uid(), name:'', nameEn:'', codes:[], count:'', sections:[], att:{p:'', a:'', d:''}});
 const newGroup = () => ({id:uid(), halls:[], proctors:[], courses:[newCourse()]});
 const newSlot = () => ({id:uid(), start:'12:00', end:'13:00', reserve:null, groups:[newGroup()]});
 function allCourseNames(){
@@ -24572,15 +24616,23 @@ function procChips(g){
   if(!g.proctors.length) return '<div class="proc-none">لم يُختر مراقبون بعد</div>';
   return `<div class="chips">${g.proctors.map(p => { const w = who(p); return `<span class="chip" title="${esc(fnm(w))}">${esc(snm(w))}<button type="button" data-a="rm-proc" data-id="${esc(p)}" aria-label="إزالة ${esc(snm(w))}">×</button></span>`; }).join('')}</div>`;
 }
+function secPanel(c){
+  const open = c.sections.length > 0;
+  if(!open) return `<div class="secbar"><button class="add-link" type="button" data-a="add-sec">${tt('+ تقسيم إلى شعب (اختياري)', '+ Split into sections (optional)')}</button></div>`;
+  return `<div class="secbar"><div class="secbox"><div class="sec-h"><b style="font-size:13px">${tt('الشعب', 'Sections')}</b><span class="hint" style="margin:0">${tt('عدد طلاب المقرر = مجموع الشعب', 'Course total = sum of its sections')}</span></div>
+    ${c.sections.map(s => `<div class="sec-row" data-sec="${s.id}"><input class="inp" data-f="secName" placeholder="${tt('اسم الشعبة (مثال: 101)', 'Section name (e.g. 101)')}" value="${esc(s.name)}" aria-label="${tt('اسم الشعبة', 'Section name')}"><input class="inp ltr" data-f="secCount" inputmode="numeric" placeholder="${tt('العدد', 'No.')}" value="${esc(s.count)}" aria-label="${tt('عدد طلاب الشعبة', 'Section students')}"><button class="x" type="button" data-a="del-sec" aria-label="${tt('حذف الشعبة', 'Delete section')}">×</button></div>`).join('')}
+    <div class="sec-f"><button class="add-link" type="button" data-a="add-sec">${tt('+ شعبة', '+ Section')}</button><span class="sec-total">${tt('المجموع:', 'Total:')} <b>${esc(c.count || '0')}</b></span></div></div></div>`;
+}
+const recalcCount = c => { if(c.sections && c.sections.length) c.count = String(c.sections.reduce((a, s) => a + (attNum(s.count) || 0), 0)); };
 function groupHTML(d, s, g){
   return `<div class="group" data-group="${g.id}">
     <div><span class="lab">المقررات</span>
       ${g.courses.map(c => `<div class="crs" data-course="${c.id}">
         <input class="inp" data-f="name" list="dl-courses" placeholder="اسم المقرر" value="${esc(c.name)}" aria-label="اسم المقرر">
         <input class="inp ltr" data-f="codes" placeholder="CS111, CS112" value="${esc((c.codes || []).join(', '))}" aria-label="رمز المقرر">
-        <input class="inp ltr" data-f="count" inputmode="numeric" placeholder="العدد" value="${esc(c.count)}" aria-label="عدد الطلاب">
+        <input class="inp ltr" data-f="count" inputmode="numeric" placeholder="العدد" value="${esc(c.count)}" aria-label="عدد الطلاب" ${c.sections.length ? 'readonly' : ''}>
         <button class="x" type="button" data-a="del-course" aria-label="حذف المقرر">×</button>
-        <input class="inp en" data-f="nameEn" placeholder="Course name in English (optional)" value="${esc(c.nameEn)}" aria-label="اسم المقرر بالإنجليزية"></div>`).join('')}
+        <input class="inp en" data-f="nameEn" placeholder="Course name in English (optional)" value="${esc(c.nameEn)}" aria-label="اسم المقرر بالإنجليزية">${secPanel(c)}</div>`).join('')}
       <button class="add-link" type="button" data-a="add-course">+ مقرر</button></div>
     <div><span class="lab">القاعات</span>
       ${g.halls.length ? `<div class="chips">${g.halls.map(h => `<span class="chip hall">${esc(h)}<button type="button" data-a="rm-hall" data-id="${esc(h)}" aria-label="إزالة القاعة">×</button></span>`).join('')}</div>` : ''}
@@ -24714,7 +24766,7 @@ function sheetTab(v, kind){
     </div>
   <div class="toolbar" style="margin-top:-6px">
     ${staff ? '' : `<label class="chk"><input type="checkbox" data-ui="showCount" ${ui.showCount ? 'checked' : ''}> إظهار عدد الطلاب</label>`}
-    <label class="chk"><input type="checkbox" data-m="showApprovalFull" ${S.meta.showApprovalFull ? 'checked' : ''}> إظهار الاعتماد</label></div>
+    <label class="chk"><input type="checkbox" data-m="showApprovalFull" ${S.meta.showApprovalFull ? 'checked' : ''}> إظهار الاعتماد</label>${secToggle()}</div>
   <div class="hint" style="margin:-6px 0 14px">إذا لم تظهر نافذة الطباعة، نزّل نسخة HTML وافتحها في المتصفح ثم اطبعها أو احفظها PDF.</div>
   <div class="papers">${fullSheets(kind)}</div>` : emptyState('لا يوجد جدول لعرضه')}`;
 }
@@ -24743,7 +24795,7 @@ function rMembers(v){
     <button class="btn ghost" data-a="html-member" type="button">تنزيل HTML</button>
     <button class="btn ghost" data-a="docx-member" type="button">Word</button>
     <button class="btn ghost" data-a="docx-all" type="button" ${withDuty ? '' : 'disabled'}>Word (جميع الأعضاء)</button>
-    <button class="btn ghost" data-a="xlsx" type="button">Excel</button></div>
+    <button class="btn ghost" data-a="xlsx" type="button">Excel</button>${secToggle()}</div>
   <div class="papers">${memberSheet(ui.member)}</div>` : emptyState('لا يوجد أعضاء')}</div></div>`;
 }
 
@@ -24801,7 +24853,7 @@ function roomTab(v, kind){
     <button class="btn gold" data-a="print-rooms" data-k="${kind}" type="button">طباعة جميع القاعات (${rooms.length})</button>
     <button class="btn ghost" data-a="html-room" data-k="${kind}" type="button">تنزيل HTML</button>
     <button class="btn ghost" data-a="docx-room" data-k="${kind}" type="button">Word</button>
-    <button class="btn ghost" data-a="docx-rooms" data-k="${kind}" type="button">Word (جميع القاعات)</button></div>
+    <button class="btn ghost" data-a="docx-rooms" data-k="${kind}" type="button">Word (جميع القاعات)</button>${secToggle()}</div>
   <div class="papers">${roomSheet(ui.room, kind)}</div></div></div>`;
 }
 const rRoom = v => roomTab(v, 'room');
@@ -24878,7 +24930,7 @@ function rDaily(v){
     <button class="btn gold" data-a="print-days" type="button">${esc(tt('طباعة تقارير جميع الأيام (' + days.length + ')', 'Print reports for all days (' + days.length + ')'))}</button>
     <button class="btn ghost" data-a="html-day" type="button">تنزيل HTML</button>
     <button class="btn ghost" data-a="docx-day" type="button">Word</button>
-    <button class="btn ghost" data-a="docx-days" type="button">Word (جميع الأيام)</button></div>
+    <button class="btn ghost" data-a="docx-days" type="button">Word (جميع الأيام)</button>${secToggle()}</div>
   ${attPanel(d)}
   <div class="papers" id="dailyPrev">${dailySheet(d, true)}</div></div></div>`;
 }
@@ -24993,7 +25045,7 @@ function reportSheets(){
   // صفحة المقررات
   const courseRows = st.rows.map((r, i) => {
     const ok = r.entered && r.reg !== null ? ((r.p || 0) + (r.a || 0) + (r.dd || 0) === r.reg ? '✓' : '⚠') : '';
-    return `<tr><td>${i + 1}</td><td class="ltr-c">${esc((r.c.codes || []).join(' / '))}</td><td class="l">${esc(cnm(r.c) || '—')}</td><td>${docDay(r.d.date)}<br><span class="ltr" style="font-size:7.2pt">${greg(r.d.date)}</span></td><td><span class="ltr">${esc(r.s.start)}–${esc(r.s.end)}</span></td><td class="ltr-c">${esc(r.g.halls.join(' / '))}</td><td>${esc(r.c.count)}</td><td>${r.p ?? ''}</td><td>${r.a ?? ''}</td><td>${r.dd ?? ''}</td><td>${ok}</td></tr>`;
+    return `<tr><td>${i + 1}</td><td class="ltr-c">${esc((r.c.codes || []).join(' / '))}</td><td class="l">${esc(cnm(r.c) || '—')}${secsHTML(r.c)}</td><td>${docDay(r.d.date)}<br><span class="ltr" style="font-size:7.2pt">${greg(r.d.date)}</span></td><td><span class="ltr">${esc(r.s.start)}–${esc(r.s.end)}</span></td><td class="ltr-c">${esc(r.g.halls.join(' / '))}</td><td>${esc(r.c.count)}</td><td>${r.p ?? ''}</td><td>${r.a ?? ''}</td><td>${r.dd ?? ''}</td><td>${ok}</td></tr>`;
   }).join('');
   const page2 = `${paperOpen()}${secHTML(T('rCourses'))}<table class="st"><thead><tr><th style="width:7mm">${T('num')}</th><th style="width:20mm">${T('code')}</th><th class="r">${T('course')}</th><th style="width:19mm">${T('day')}</th><th style="width:17mm">${T('time')}</th><th style="width:15mm">${T('hall')}</th><th style="width:12mm">${T('regd')}</th><th style="width:13mm">${T('present')}</th><th style="width:13mm">${T('absent')}</th><th style="width:14mm">${T('deprived')}</th><th style="width:8mm"></th></tr></thead><tbody>${courseRows}</tbody></table>${footHTML(T('titleReport') + ' · 2', false)}</div>`;
   // صفحة القاعات والعبء
@@ -25054,7 +25106,7 @@ function exportReportXLSX(){
   add(T('rWork').slice(0, 30), [[T('iName'), T('iUser'), T('iDept'), T('dutyPrc'), T('dutyRes'), T('grand')], ...st.members.map(x => [fnm(x.w), x.w.user || '', dpt(x.w), x.prc, x.res, x.total])], [34, 12, 26, 12, 12, 10]);
   add(T('rDept').slice(0, 30), [[T('iDept'), T('rMembers'), T('dutyPrc'), T('dutyRes'), T('grand')], ...st.depts.map(x => [lang === 'en' ? (DEPT_EN[x.deptRaw] || x.dept) : x.dept, x.members, x.prc, x.res, x.total])], [30, 12, 12, 12, 10]);
   add(T('rObs').slice(0, 30), [[T('rObs')], ...reportObs(st).map(o => [o.t]), [''], [T('rNotes')], [S.meta.reportNotes || '']], [110]);
-  saveFile(fname('xlsx').replace(/\.xlsx$/, '') + (en ? '-official-report' : '-التقرير-الرسمي') + '.xlsx', new Uint8Array(XLSX.write(wb, {bookType:'xlsx', type:'array'})));
+  saveFile(docName('report') + '.xlsx', new Uint8Array(XLSX.write(wb, {bookType:'xlsx', type:'array'})));
 }
 
 /* ---- ٦ هيئة التدريس ---- */
@@ -25165,7 +25217,7 @@ function openCreate(srcId){
       let note = '';
       if(s){
         const d0 = first(s), st = $('#c-start').value, delta = d0 && validIso(st) ? diffDays(st, d0) : 0, cp = $('#c-prc').checked;
-        rec.days = clone(s.days).map(d => ({id:uid(), date:validIso(d.date) ? isoOf(addDays(pd(d.date), delta)) : d.date, slots:d.slots.map(sl => ({id:uid(), start:sl.start, end:sl.end, reserve:cp ? sl.reserve : null, groups:sl.groups.map(g => ({id:uid(), halls:g.halls.slice(), proctors:cp ? g.proctors.slice() : [], courses:g.courses.map(c => Object.assign({}, c, {id:uid(), att:{p:'', a:'', d:''}}))}))}))}));
+        rec.days = clone(s.days).map(d => ({id:uid(), date:validIso(d.date) ? isoOf(addDays(pd(d.date), delta)) : d.date, slots:d.slots.map(sl => ({id:uid(), start:sl.start, end:sl.end, reserve:cp ? sl.reserve : null, groups:sl.groups.map(g => ({id:uid(), halls:g.halls.slice(), proctors:cp ? g.proctors.slice() : [], courses:g.courses.map(c => Object.assign({}, c, {id:uid(), att:{p:'', a:'', d:''}, sections:(c.sections || []).map(x => Object.assign({}, x, {id:uid()}))}))}))}))}));
         normalize(rec);
         if(cp){ const prev = S; S = rec; const n = stripFor(rec, SECT[meta.sector].gender); S = prev; if(n) note = tt(` (أُزيل ${n} تكليف لأعضاء من الشطر الآخر)`, ` (${n} assignments of members from the other section were removed)`); }
       }
@@ -25243,10 +25295,10 @@ view.addEventListener('click', async e => {
     case 'rm-reserve': if(slot){ slot.reserve = null; save(); render(); } break;
     case 'pick-procs': if(group) openPicker({title:'اختيار المراقبين', multi:true, selected:group.proctors, date:day.date, start:slot.start, end:slot.end, unit:slot.id + ':' + group.id, onDone: ids => { group.proctors = ids; save(); render(); }}); break;
     case 'pick-reserve': if(slot) openPicker({title:'اختيار المراقب الاحتياطي', multi:false, selected:slot.reserve ? [slot.reserve] : [], date:day.date, start:slot.start, end:slot.end, unit:slot.id + ':res', onDone: ids => { slot.reserve = ids[0] || null; save(); render(); }}); break;
-    case 'print-full': doPrint(fullSheets('staff')); break;
-    case 'print-stu': doPrint(fullSheets('stu')); break;
-    case 'html-full': exportHTML(fullSheets('staff'), lang === 'en' ? 'staff' : 'أعضاء-التدريس'); break;
-    case 'html-stu': exportHTML(fullSheets('stu'), lang === 'en' ? 'students' : 'طلاب'); break;
+    case 'print-full': doPrint(fullSheets('staff'), docName('staff')); break;
+    case 'print-stu': doPrint(fullSheets('stu'), docName('stu')); break;
+    case 'html-full': exportHTML(fullSheets('staff'), 'staff'); break;
+    case 'html-stu': exportHTML(fullSheets('stu'), 'stu'); break;
     case 'xlsx': exportXLSX('staff'); break;
     case 'xlsx-stu': exportXLSX('stu'); break;
     case 'docx-full': exportDocx('staff'); break;
@@ -25254,26 +25306,28 @@ view.addEventListener('click', async e => {
     case 'docx-member': if(ui.member) exportDocx('member', ui.member); break;
     case 'docx-all': exportDocx('members'); break;
     case 'pick-room': ui.room = t.dataset.id; render(); break;
+    case 'add-sec': { const c = ctx(t).course; if(c){ if(!c.sections.length && c.count !== '') c.sections.push({id:uid(), name:'', count:String(attNum(c.count) ?? '')}); c.sections.push({id:uid(), name:'', count:''}); recalcCount(c); save(); render(); } break; }
+    case 'del-sec': { const c = ctx(t).course, sid = t.closest('[data-sec]').dataset.sec; if(c){ c.sections = c.sections.filter(x => x.id !== sid); recalcCount(c); if(c.name) bank[c.name] = {codes:c.codes, count:c.count, nameEn:c.nameEn, sections:c.sections}; save(); render(); } break; }
     case 'zoom': { const d = +t.dataset.d, cur = ui.zoomMul || 1; ui.zoomMul = d === 0 ? 1 : Math.min(4, Math.max(1, d > 0 ? cur * 1.3 : cur / 1.3)); fitPapers(); break; }
     case 'pick-day': ui.day = t.dataset.id; render(); break;
-    case 'print-day': { const dd = S.days.find(x => x.id === ui.day); if(dd) doPrint(dailySheet(dd)); break; }
-    case 'print-days': doPrint(allDailySheets()); break;
-    case 'html-day': { const dd = S.days.find(x => x.id === ui.day); if(dd) exportHTML(dailySheet(dd), (lang === 'en' ? 'daily-' : 'تقرير-يومي-') + dd.date); break; }
+    case 'print-day': { const dd = S.days.find(x => x.id === ui.day); if(dd) doPrint(dailySheet(dd), docName('day', dayLabel(dd))); break; }
+    case 'print-days': doPrint(allDailySheets(), docName('days')); break;
+    case 'html-day': { const dd = S.days.find(x => x.id === ui.day); if(dd) exportHTML(dailySheet(dd), 'day', dayLabel(dd)); break; }
     case 'docx-day': exportDocx('day', ui.day); break;
     case 'docx-days': exportDocx('days'); break;
-    case 'print-report': doPrint(reportSheets()); break;
-    case 'html-report': exportHTML(reportSheets(), lang === 'en' ? 'official-report' : 'التقرير-الرسمي'); break;
+    case 'print-report': doPrint(reportSheets(), docName('report')); break;
+    case 'html-report': exportHTML(reportSheets(), 'report'); break;
     case 'docx-report': exportDocx('report'); break;
     case 'xlsx-report': exportReportXLSX(); break;
-    case 'print-room': doPrint(roomSheet(ui.room, t.dataset.k)); break;
-    case 'print-rooms': doPrint(allRoomSheets(t.dataset.k)); break;
-    case 'html-room': exportHTML(roomSheet(ui.room, t.dataset.k), (t.dataset.k === 'rprc' ? (lang === 'en' ? 'room-proctors-' : 'مراقبو-القاعة-') : (lang === 'en' ? 'room-' : 'القاعة-')) + ui.room); break;
+    case 'print-room': doPrint(roomSheet(ui.room, t.dataset.k), docName(t.dataset.k, ui.room)); break;
+    case 'print-rooms': doPrint(allRoomSheets(t.dataset.k), docName(t.dataset.k + 's')); break;
+    case 'html-room': exportHTML(roomSheet(ui.room, t.dataset.k), t.dataset.k, ui.room); break;
     case 'docx-room': exportDocx(t.dataset.k, ui.room); break;
     case 'docx-rooms': exportDocx(t.dataset.k + 's'); break;
     case 'pick-member': ui.member = t.dataset.id; render(); break;
-    case 'print-member': if(ui.member) doPrint(memberSheet(ui.member)); break;
-    case 'print-all': { const h = allMemberSheets(); if(h) doPrint(h); break; }
-    case 'html-member': if(ui.member) exportHTML(memberSheet(ui.member), snm(who(ui.member))); break;
+    case 'print-member': if(ui.member) doPrint(memberSheet(ui.member), docName('member', snm(who(ui.member)))); break;
+    case 'print-all': { const h = allMemberSheets(); if(h) doPrint(h, docName('members')); break; }
+    case 'html-member': if(ui.member) exportHTML(memberSheet(ui.member), 'member', snm(who(ui.member))); break;
     case 'import-xlsx': $('#fileXlsx').click(); break;
     case 'reset-fac':
       if(await ask('استعادة قائمة أعضاء هيئة التدريس الأصلية؟ ستُفقد التعديلات على الأسماء والأعضاء المضافين.', 'استعادة')){ faculty = normFaculty(clone(DEFAULT_FACULTY)); rebuildFac(); saveFac(); render(); }
@@ -25295,6 +25349,15 @@ view.addEventListener('click', async e => {
 
 view.addEventListener('input', e => {
   const t = e.target;
+  if(t.dataset.f === 'secName' || t.dataset.f === 'secCount'){
+    const {course} = ctx(t), srow = t.closest('[data-sec]'); if(!course || !srow) return;
+    const s = course.sections.find(x => x.id === srow.dataset.sec); if(!s) return;
+    if(t.dataset.f === 'secName') s.name = t.value; else { const cl = t.value.replace(/[^\d]/g, ''); if(cl !== t.value) t.value = cl; s.count = cl; }
+    recalcCount(course);
+    const row = t.closest('[data-course]'); row.querySelector('[data-f="count"]').value = course.count; row.querySelector('.sec-total b').textContent = course.count || '0';
+    if(course.name) bank[course.name] = {codes:course.codes, count:course.count, nameEn:course.nameEn, sections:course.sections};
+    save(); refreshAside(); return;
+  }
   if(t.dataset.att){
     const row = t.closest('tr'), c = row && findCourse(row.dataset.cid); if(!c) return;
     const clean = t.value.replace(/[^\d]/g, ''); if(clean !== t.value) t.value = clean;
@@ -25319,9 +25382,9 @@ view.addEventListener('change', async e => {
   if(t.dataset.f === 'name'){
     const {course} = ctx(t); if(!course) return;
     const b = bank[course.name];
-    if(b && !course.codes.length && course.count === ''){
-      course.codes = (b.codes || []).slice(); course.count = b.count || ''; if(!course.nameEn) course.nameEn = b.nameEn || '';
-      const row = t.closest('[data-course]'); $('[data-f="codes"]', row).value = course.codes.join(', '); $('[data-f="count"]', row).value = course.count; $('[data-f="nameEn"]', row).value = course.nameEn;
+    if(b && !course.codes.length && course.count === '' && !course.sections.length){
+      course.codes = (b.codes || []).slice(); course.count = b.count || ''; course.sections = (b.sections || []).map(x => ({id:uid(), name:x.name, count:x.count})); if(!course.nameEn) course.nameEn = b.nameEn || '';
+      save(); render(); return;
     }
     save(); refreshAside();
   } else if(t.dataset.f === 'date'){
@@ -25346,7 +25409,7 @@ view.addEventListener('change', async e => {
     if(k === 'sector'){ await setSector(t.value); return; }
     if(t.type === 'checkbox') S.meta[k] = t.checked; else if(t.dataset.num) S.meta[k] = +t.value; else S.meta[k] = t.value;
     save();
-    if(['exam','term','year','hijriOffset','approvalDate','showApprovalFull','memberSign'].includes(k)) render();
+    if(['exam','term','year','hijriOffset','approvalDate','showApprovalFull','memberSign','showSections'].includes(k)) render();
   } else if(t.dataset.ff){
     const f = faculty.find(x => x.id === t.closest('tr').dataset.fid); if(!f) return;
     const k = t.dataset.ff; f[k] = k === 'gender' ? t.value : t.value.trim();
